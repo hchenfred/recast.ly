@@ -17,6 +17,7 @@ describe ('VideoPlayer', function() {
         <VideoPlayer video={window.fakeVideoData[0]} />
       </Wrapper>
     );
+    console.log(window.fakeVideoData[0]);
 
     superCuteCatVideo = renderIntoDocument(
       <Wrapper>
