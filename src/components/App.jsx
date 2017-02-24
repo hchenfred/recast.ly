@@ -43,7 +43,7 @@ class App extends React.Component {
     this.setState({
       filterText: text
     });
-    console.log(this);
+    
     var options = {
       key: window.YOUTUBE_API_KEY,
       part: 'snippet',
