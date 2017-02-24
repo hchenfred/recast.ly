@@ -1,18 +1,6 @@
 var searchYouTube = (options, callback) => {
 
-  // TODO
-
-  // var request = gapi.client.youtube.search.list({
-  //   part: "snippet",
-  //   type: "video",
-  //   q: encodeURIComponent('emma'),
-  //   maxResults: 3
-  // });
-
-  // request.execute(function(response) {
-  //   console.log(response);
-  // });
-  //debugger;
+  
   $.ajax({
     url: 'https://www.googleapis.com/youtube/v3/search',
     data: {
@@ -25,10 +13,11 @@ var searchYouTube = (options, callback) => {
     },
     success: function(data) {
       //console.log();
-      console.log(data);
+      //console.log(data);
       callback(data.items);
       //done();
-    }
+    },
+    timeout: 500
   });
 };
 

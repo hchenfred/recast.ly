@@ -8,7 +8,7 @@ class App extends React.Component {
     };
 
     this.onListItemClick = this.onListItemClick.bind(this);
-    this.onSearchButtonClick = this.onSearchButtonClick.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
   }
 
   componentDidMount() {
@@ -17,25 +17,17 @@ class App extends React.Component {
       part: 'snippet',
       type: 'video',
       videoEmbeddable: true,
-      q: this.state.filterText,
+      query: this.state.filterText,
       maxResults: 5
     };
     //console.log(window.searchYouTube);
     // var context = this;
     //var videos;
     this.props.searchYouTube(options, function (data) {
-      // context.setState({videoResult: data});
-      console.log('compodidmount', this);
-      console.log(data);
       this.setState({
         videoResult: data
       });
-      // videos = data;
     }.bind(this));
-    // this.setState({
-    //   videoResult: videos
-    //   //data,
-    // });
   }
 
   onListItemClick(clicked) {
@@ -44,12 +36,31 @@ class App extends React.Component {
       clickedVideo: clicked
       //data,
     });
+
   }
 
-  onSearchButtonClick(filterText) {
-    console.log(filterText);
+  onSearchChange(text) {
     this.setState({
-      filterText: filterText
+      filterText: text
+    });
+    console.log(this);
+    var options = {
+      key: window.YOUTUBE_API_KEY,
+      part: 'snippet',
+      type: 'video',
+      videoEmbeddable: true,
+      query: text,
+      maxResults: 5
+    };
+    //console.log(filterText);
+    //console.log(options);
+    var context = this;
+    context.props.searchYouTube(options, (data) => {
+      console.log(data);
+      context.setState({
+        videoResult: data
+      });
+    // videos = data;
     });
   }
 
@@ -57,7 +68,7 @@ class App extends React.Component {
     return ( 
       <div>
         <Nav 
-          onSearchButtonClick={this.onSearchButtonClick}
+          onSearchChange={this.onSearchChange}
         />
         <div className="col-md-7">
           <VideoPlayer video={this.state.clickedVideo}/>
